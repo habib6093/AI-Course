@@ -17,10 +17,9 @@ def initialize(dimension):
 
 
 
-def solve_nqueen(column,left,right,at,board,counter):
+def solve_nqueen(column,left,right,at,board):
     if(at>=dimension):
       show(board)
-      print("counter is: ",counter)
       print("\n")
       return
 
@@ -47,13 +46,9 @@ def nqueen(dimension):
     left=initialize(dimension)
     right=initialize(dimension)
     board=initialize_board(dimension)
-    solve_nqueen(column,left,right,0,board,0)
+    solve_nqueen(column,left,right,0,board)
    
 
 
 dimension=5
 nqueen(dimension)
-
-
-
-
