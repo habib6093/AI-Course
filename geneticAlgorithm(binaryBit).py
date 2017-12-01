@@ -40,6 +40,7 @@ class Population:
     def calculateFitness(self,temp):
         for i in temp:
             i.calculateFitness()
+            print(i.gene,"  fitness  ",i.fitness)
 
         temp.sort(key=lambda x: x.fitness, reverse=False)
 
@@ -56,8 +57,8 @@ class Population:
 
 
     def getSecondFittestIndividual(self):
-        temp=self.calculateFitness(self.individuals)
-        return temp[-2]
+        temp=self.individuals[-2]#self.calculateFitness(self.individuals)
+        return temp
 
 
 
@@ -68,6 +69,7 @@ class Population:
 
 
     def selection(self):
+        
         mostFittest=copy.deepcopy(self.getFittestIndividual())
         secondMostFittest=copy.deepcopy(self.getSecondFittestIndividual())
 
@@ -85,7 +87,7 @@ class Population:
         for i in range(swapPoint):
             temp[0].gene[i], temp[1].gene[i] = temp[1].gene[i], temp[0].gene[i]
 
-        self.getFittestIndividual()
+        #self.getFittestIndividual()
 
         return copy.copy(temp)
 
@@ -99,9 +101,10 @@ class Population:
 
         randomPoint = randint(0, self.individuals[0].geneLength - 1)
         temp[1].gene[randomPoint] = 1
-
-
-        self.getFittestIndividual()
+        
+        print("Offsprings are..............")
+    
+        	
 
         return temp
 
@@ -109,11 +112,14 @@ class Population:
 
 
     def getFittestOffspring(self):
-
+        
         temp=self.calculateFitness(self.mutation())
-
-        self.individuals[0] = temp[-1]
-
+        
+        
+        if temp[-1].fitness > self.individuals[0].fitness:
+          self.individuals[0] = temp[-1]
+        
+        print("after changing least fittest population with fittest offspring............")
         return self.getFittestIndividual().fitness
 
 
@@ -133,6 +139,8 @@ a = Population(populationSize, [x, y, z])
 
 count = 1
 while (a.getFittestOffspring() < geneLength):
+    print("End of generation.....................",count)
+    print(" ")
     count += 1
 
 print(count," Generations are needed to find the fully fittest individual" )
