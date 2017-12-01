@@ -142,8 +142,9 @@ class Population:
         for i in temp:
             print(i.gene, "  distance ", i.distance)
 
-
-        self.individuals[0] = temp[-1]
+        
+        if (self.individuals[0].distance > temp[-1].distance):
+           self.individuals[0] = temp[-1]
 
         return self.getFittestIndividual(goal).distance
 
@@ -165,7 +166,7 @@ a = Population(populationSize, [x, y, z])
 
 count = 1
 while (a.getFittestOffspring(goal) >0):
-    print("----  generation ", count, "------")
+    print("---- End of generation ", count, "------")
     print(" ")
     count += 1
 
